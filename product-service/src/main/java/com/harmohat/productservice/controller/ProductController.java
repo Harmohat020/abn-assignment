@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.harmohat.productservice.dto.ProductDetailsResponse;
 import com.harmohat.productservice.dto.ProductRequest;
 import com.harmohat.productservice.model.Product;
 import com.harmohat.productservice.service.ProductService;
@@ -41,5 +42,10 @@ public class ProductController {
 	public ResponseEntity<Product> create(@Valid @RequestBody ProductRequest request) {
 		Product createdProduct = productService.create(request.getName(), request.getPrice());
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+	}
+	
+	@GetMapping("/{id}/details")
+	public ProductDetailsResponse getDetails(@PathVariable int id) {
+		return productService.getDetails(id);
 	}
 }
