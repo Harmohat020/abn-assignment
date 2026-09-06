@@ -31,4 +31,6 @@
 The ids and quantities are small whole number, so int is enough. In a real system with very large ids I might use long, but that is not needed here.
 - InventoryRepository: It stores the data in-memory in a Map<Integer, Inventory>, keyed by productId. findByProductId returns Optional<Inventory> instead  of null, to make "not found" explicit and avoid NullPointerExceptions.
 - InventoryService: getByProductId uses Optional.orElseThrow to return the inventory or throw InventoryNotFoundException with a clear message including the productId.
+- InventoryController: exposes `GET /inventory/{productId}`. I kept it simple, it only receives the request and calls the service. 
+- Exception handling: centralized with @RestControllerAdvice so the error handling is in one place. InventoryNotFoundException maps to 404, because "not found" is not a server error (500). I was not familiar with @RestControllerAdvice, so I used the Spring docs: docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-advice.html
 
