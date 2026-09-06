@@ -9,6 +9,7 @@ import com.harmohat.inventoryservice.model.Inventory;
 
 @Repository
 public class InventoryRepository {
+	
 	private final Map<Integer, Inventory> inventoryData = new HashMap<>();
 	
 	public InventoryRepository() {

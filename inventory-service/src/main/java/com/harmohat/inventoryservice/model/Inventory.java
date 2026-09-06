@@ -1,6 +1,7 @@
 package com.harmohat.inventoryservice.model;
 
 public class Inventory {
+	
 	private int productId;
     private int quantity;
 
