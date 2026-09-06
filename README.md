@@ -82,6 +82,11 @@ the services line up:
 | 2  | Keyboard | 50.00   | 15    |
 | 3  | Mouse    | 25.00   | 10    |
 
+## Coverage report
+
+Run `mvn clean verify` in a service folder. JaCoCo generates an HTML coverage
+report at `target/site/jacoco/index.html`.
+
 ## API examples
 
 ### Inventory Service (port 8081)
