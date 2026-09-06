@@ -1,0 +1,27 @@
+# Choices and reasoning
+
+## The assignment
+- 2 microservices: There is an Inventory (simple lookup) and Product (CRUD + a combined `/details` endpoint that calls the Inventory).
+	- Inventory service: This service will store the stock in-memory with one lookup endpoint. It only knows it own data. It does not check the product service.
+	- Product service: manages the products (GET all, GET by id, POST create) and has an endpoint `GET /products/{id}/details` that combines its own product data with the stock from the Inventory service
+	
+### Key points I understand
+- Both services store in-memory (no database). I insert the product and inventory test data myself, using mathcing ids so they lineup.
+- The link between the two is the productId.
+- The Inventory service does not verify products with the Product service. Each service stays independent.
+- A product created via `POST /products` will have no inventory record, because there is no way to add inventory (No POST on Inventory). I will handle this as a "missing inventory" case in `/details`.
+	
+## Approach
+1. I choose to build Inventory first. Thinking about it, Product comes first (no product means no inventory), from a technical perspective the Product Service will call the Inventory Service for the `/details` endpoint. So building the Inventory first means it's ready and testable when I implement that combined endpoint. Inventory is also simpler, which makes it a good start point.
+2. Then the Product service
+3. Then the service communication: the `/details` endpoint that calls Inventory.
+
+## Project setup
+- In the document there is a suggested project structure, and because we need two Spring Boot microservices I placed the projects in one git repo (monorepo).
+
+## Layers
+- Controller
+- Service
+- Repository
+- Model/DTO
+- Exception handling
