@@ -1,0 +1,10 @@
+target/
+.idea/
+*.iml
+.DS_Store
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
