@@ -34,3 +34,7 @@ The ids and quantities are small whole number, so int is enough. In a real syste
 - InventoryController: exposes `GET /inventory/{productId}`. I kept it simple, it only receives the request and calls the service. 
 - Exception handling: centralized with @RestControllerAdvice so the error handling is in one place. InventoryNotFoundException maps to 404, because "not found" is not a server error (500). I was not familiar with @RestControllerAdvice, so I used the Spring docs: docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-advice.html
 
+## Testing
+### Inventory Service
+- I made tests for the service and controller, since those hold the logic worth verifying (found vs not-found, and mapping to the right HTTP status). I mocked the dependency in each test, so the service and controller are tested in isolation.
+
