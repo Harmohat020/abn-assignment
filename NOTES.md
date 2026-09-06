@@ -16,16 +16,18 @@
 2. Then the Product service
 3. Then the service communication: the `/details` endpoint that calls Inventory.
 
-## Project setup
-- In the document there is a suggested project structure, and because we need two Spring Boot microservices I placed the projects in one git repo (monorepo).
-
-## Data types and models
-- Inventory model: productId (int) and quantity (int).
-The ids and quantities are small whole number, so int is enough. In a real system with very large ids I might use long, but that is not needed here.
-
 ## Layers
 - Controller
 - Service
 - Repository
 - Model/DTO
 - Exception handling
+
+## Project setup
+- In the document there is a suggested project structure, and because we need two Spring Boot microservices I placed the projects in one git repo (monorepo).
+
+## Implementation choices
+- Inventory model: productId (int) and quantity (int).
+The ids and quantities are small whole number, so int is enough. In a real system with very large ids I might use long, but that is not needed here.
+- InventoryRepository: It stores the data in-memory in a Map<Integer, Inventory>, keyed by productId. findByProductId returns Optional<Inventory> instead  of null, to make "not found" explicit and avoid NullPointerExceptions.
+
