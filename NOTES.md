@@ -30,4 +30,5 @@
 - Inventory model: productId (int) and quantity (int).
 The ids and quantities are small whole number, so int is enough. In a real system with very large ids I might use long, but that is not needed here.
 - InventoryRepository: It stores the data in-memory in a Map<Integer, Inventory>, keyed by productId. findByProductId returns Optional<Inventory> instead  of null, to make "not found" explicit and avoid NullPointerExceptions.
+- InventoryService: getByProductId uses Optional.orElseThrow to return the inventory or throw InventoryNotFoundException with a clear message including the productId.
 
