@@ -36,4 +36,24 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
+    
+    // 404: inventory not found
+    @ExceptionHandler(InventoryNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleInventoryNotFound(InventoryNotFoundException ex) {
+        Map<String, Object> body = Map.of(
+            "message", ex.getMessage(),
+            "timestamp", LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+    
+    // 503: inventory service is unreachable
+    @ExceptionHandler(InventoryUnavailableException.class)
+    public ResponseEntity<Map<String, Object>> handleInventoryUnavailable(InventoryUnavailableException ex) {
+        Map<String, Object> body = Map.of(
+            "message", ex.getMessage(),
+            "timestamp", LocalDateTime.now()
+        );
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(body);
+    }
 }

@@ -5,10 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import com.harmohat.productservice.dto.InventoryResponse;
 import com.harmohat.productservice.dto.ProductDetailsResponse;
+import com.harmohat.productservice.exception.InventoryNotFoundException;
+import com.harmohat.productservice.exception.InventoryUnavailableException;
 import com.harmohat.productservice.exception.ProductNotFoundException;
 import com.harmohat.productservice.model.Product;
 import com.harmohat.productservice.repository.ProductRepository;
@@ -47,7 +51,15 @@ public class ProductService {
 		Product product = getById(id);
 		
 		String url = inventoryServiceUrl + "/inventory/" + id;
-		InventoryResponse inventory = restTemplate.getForObject(url, InventoryResponse.class);
+		InventoryResponse inventory;
+		
+		try {
+			inventory = restTemplate.getForObject(url, InventoryResponse.class);
+		} catch (HttpClientErrorException.NotFound e) {
+	        throw new InventoryNotFoundException("No inventory found for product " + id);
+		} catch (ResourceAccessException ex) {
+	        throw new InventoryUnavailableException("Inventory Service is unavailable");
+	    }
 	
 		int quantity = inventory.getQuantity();
 		
