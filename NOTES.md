@@ -19,6 +19,10 @@
 ## Project setup
 - In the document there is a suggested project structure, and because we need two Spring Boot microservices I placed the projects in one git repo (monorepo).
 
+## Data types and models
+- Inventory model: productId (int) and quantity (int).
+The ids and quantities are small whole number, so int is enough. In a real system with very large ids I might use long, but that is not needed here.
+
 ## Layers
 - Controller
 - Service
